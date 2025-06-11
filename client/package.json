@@ -33,7 +33,7 @@
       "api": {
         "tst": "http://localhost:9000",
         "dev": "http://localhost:9000",
-        "pro": "http://localhost:9000"
+        "pro": "https://api.a51.dev/superdemo/"
       }
     },
     "socket": {
