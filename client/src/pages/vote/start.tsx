@@ -76,7 +76,7 @@ function Vote() {
       <li key={props.id}>
 
         <div className="beerThumb">
-          {props.image && <img src={props.image} width='80' />}
+          {props.image && <img src={encodeURIComponent(props.image)} width='80' />}
         </div>
 
         <div className="beerInfo">

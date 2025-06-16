@@ -22,8 +22,7 @@ export const InputSearch = (props: InputSearchInterface) => {
           id={props?.id}
           name={props?.name}
           className="input"
-          defaultValue={props?.defaultValue}
-          value={props?.value}
+          defaultValue={props?.value || props?.defaultValue}
           title={props?.title}
           style={({ borderColor: props.error && "red" })}
           placeholder={props?.placeholder || 'Search...'}

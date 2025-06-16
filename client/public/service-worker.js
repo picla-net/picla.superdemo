@@ -29,12 +29,14 @@ self.addEventListener('install', function (event) {
       });
       */
 
-      caches.open(CACHE_NAME).then(function (cache) {
-        return cache.addAll([
-          event.request.url
-        ])
-      })
-
+      caches.open(CACHE_NAME)
+        .then(
+          cache => {
+            return cache.addAll([
+              event.request.url
+            ])
+          },()=>{}
+        )
     })()
   )
 
@@ -61,11 +63,14 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', function (event) {
   //console.log('[WORKER] Fetch', event.request.url);
 
-  caches.open(CACHE_NAME).then(function (cache) {
-    return cache.addAll([
-      event.request.url
-    ])
-  })
+  caches.open(CACHE_NAME)
+    .then(
+      cache => {
+        return cache.addAll(
+          [event.request.url]
+        )
+      },()=>{}
+    )
 
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {

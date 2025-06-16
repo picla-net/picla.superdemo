@@ -8,11 +8,14 @@ const
   express = require('express'),
   path = require('path'),
   app = express(),
+  rateLimit = require('express-rate-limit'),
   port = pjson.port,
   { createProxyMiddleware } = require('http-proxy-middleware'),
 
   // grab dyna uri
   url = __dirname.replace('server', '')
+
+app.use(helmet());
 
   app.use(
     '/api',

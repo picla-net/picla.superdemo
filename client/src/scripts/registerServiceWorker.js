@@ -43,7 +43,7 @@ export default function register() {
             'This web app is being served cache-first by a service ' +
               'worker. To learn more, visit https://goo.gl/SC7cgQ'
           );
-        });
+        },()=>{});
       } else {
         // Is not local host. Just register service worker
         registerValidSW(swUrl);
@@ -91,11 +91,13 @@ function checkValidServiceWorker(swUrl) {
         response.headers.get('content-type').indexOf('javascript') === -1
       ) {
         // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
-          registration.unregister().then(() => {
-            window.location.reload();
-          });
-        });
+        navigator.serviceWorker.ready
+          .then(registration => {
+          registration.unregister()
+            .then(() => {
+              window.location.reload();
+            },()=>{});
+        },()=>{});
       } else {
         // Service worker found. Proceed as normal.
         registerValidSW(swUrl);
@@ -112,6 +114,6 @@ export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();
-    });
+    },()=>{});
   }
 }
