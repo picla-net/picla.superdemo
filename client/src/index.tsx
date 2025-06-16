@@ -5,6 +5,7 @@ License: MIT
 
 // DPHELPER
 import 'dphelper'
+import 'layerpro'
 
 import { createRoot } from "react-dom/client"
 import { BrowserRouter } from "react-router"

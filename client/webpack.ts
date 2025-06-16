@@ -5,7 +5,6 @@ module.exports = (env: any, args: any) => {
   const
     status = args.mode === "development" ? true : false,
     webpack = require("webpack"),
-    // HtmlWebpackPlugin = require('html-webpack-plugin'),
     CopyPlugin = require("copy-webpack-plugin"),
     TerserPlugin = require("terser-webpack-plugin"),
     dotenv = require('dotenv').config({ path: __dirname + '/.env' }).parsed,
@@ -45,13 +44,6 @@ module.exports = (env: any, args: any) => {
       ? {
         type: 'memory',
         cacheUnaffected: true,
-        // compression: 'brotli',
-        // type: 'filesystem',
-        // allowCollectingMemory: true,
-        // cacheDirectory: path.resolve(__dirname, '.cache'),
-        // buildDependencies: {
-        //   config: [__filename]
-        // }
       } : false,
 
     stats: {
@@ -63,8 +55,6 @@ module.exports = (env: any, args: any) => {
 
       port: constants.PORT,
       compress: !constants.DEV,
-      // liveReload: constants.DEV,
-      // hot: constants.DEV,
       hot: false,
       open: false,
 
@@ -74,8 +64,6 @@ module.exports = (env: any, args: any) => {
             return {
               context: [`/${item[0]}`],
               secure: false,
-              // changeOrigin: true,
-              // pathRewrite: { '^/api': '' },
               target: constants.LOCAL
                 ? item[1]['tst']
                 : constants.DEV
@@ -288,14 +276,18 @@ module.exports = (env: any, args: any) => {
 
     plugins: [
 
-      new webpack.ProvidePlugin({
-        "React": "react"
-      }),
+      new webpack.ProvidePlugin(
+        {
+          "React": "react"
+        }
+      ),
 
       // Environment
-      new webpack.DefinePlugin({
-        'process.env': JSON.stringify(constants)
-      }),
+      new webpack.DefinePlugin(
+        {
+          'process.env': JSON.stringify(constants)
+        }
+      ),
 
       new webpack.ContextReplacementPlugin(
         /\/package-name\//,
@@ -305,82 +297,19 @@ module.exports = (env: any, args: any) => {
         }
       ),
 
-      // // Provide
-      // new webpack.ProvidePlugin({
-      //   process: 'process/browser',
-      //   Buffer: ['buffer', 'Buffer']
-      // }),
-
-      // All stuff
-      // new HtmlWebpackPlugin(
-      //   Object.assign(
-      //     {},
-      //     {
-      //       // alwaysWriteToDisk: true,
-      //       title: constants.NAME.toUpperCase(),
-      //       filename: `${DIST_DIR}/index.html`,
-      //       template: `./src/app/index.html`,
-      //       inject: true,
-      //       hash: false
-      //     },
-      //     constants.MODE !== 'DEV'
-      //       ? {
-      //         minify: {
-      //           removeComments: true,
-      //           collapseWhitespace: true,
-      //           removeRedundantAttributes: true,
-      //           useShortDoctype: true,
-      //           removeEmptyAttributes: true,
-      //           removeStyleLinkTypeAttributes: true,
-      //           keepClosingSlash: true,
-      //           minifyJS: true,
-      //           minifyCSS: true,
-      //           minifyURLs: true
-      //         }
-      //       }
-      //       : undefined
-      //   )
-      // ),
-
-      new CopyPlugin({
-        patterns: [
-          {
-            from: "./public/",
-            to: "./",
-            globOptions: {
-              gitignore: true,
+      new CopyPlugin(
+        {
+          patterns: [
+            {
+              from: "./public/",
+              to: "./",
+              globOptions: {
+                gitignore: true,
+              }
             }
-          }
-        ],
-      }),
-
-      // new CopyPlugin({
-      //   patterns: [
-      //     {
-      //       from: `./public`,
-      //       to: `${DIST_DIR}/`,
-      //       noErrorOnMissing: true,
-      //       globOptions: {
-      //         gitignore: true
-      //       }
-      //     },
-      //     {
-      //       from: `./types`, to: `${DIST_DIR}/types`,
-      //       noErrorOnMissing: true,
-      //       globOptions: { gitignore: true }
-      //     },
-      //     {
-      //       from: `./.github`, to: `${DIST_DIR}/`,
-      //       noErrorOnMissing: true,
-      //       globOptions: { gitignore: true }
-      //     },
-      //   ],
-
-      //   options: {
-      //     concurrency: 500
-      //   }
-
-      // }),
+          ],
+        }
+      ),
 
       // Hot Module Replacement
       new webpack.HotModuleReplacementPlugin()
