@@ -15,7 +15,7 @@
   "editor.unicodeHighlight.invisibleCharacters": true,
   "editor.unicodeHighlight.ambiguousCharacters": true,
   "editor.unicodeHighlight.nonBasicASCII": true,
-  "editor.hover.enabled": true,
+  "editor.hover.enabled": "on",
   "editor.hover.delay": 2000,
   "editor.codeLens": false,
   "editor.tabCompletion": "off",
